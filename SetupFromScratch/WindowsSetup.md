@@ -19,8 +19,8 @@ This issue have been fixed by simply **switch to CMD as admin** rather Powershel
 
 ## Wsl/Service/0x8007273d
 This error might shows up when SWL installation or reboot finished, as a console error info or a popup dialog.\
-[](../SetupFromScratch/img/swl_err1.png)\
-[](../SetupFromScratch/img/swl_err2.png)\
+[wsl_err_info](../SetupFromScratch/img/swl_err1.png)\
+[wsl_err_popup](..\SetupFromScratch\img\swl_err2.png)\
 This issue can be solve by running this command as admin and reboot system.
 ```console
 netsh winsock reset
