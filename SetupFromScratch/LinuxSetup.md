@@ -1,4 +1,5 @@
 # Basic Tools(root)
+```console
 sudo add-apt-repository main
 sudo add-apt-repository universe
 sudo add-apt-repository restricted
@@ -9,28 +10,25 @@ sudo apt install x11-apps -y
 sudo apt install ubuntu-desktop mesa-utils
 xauth add $(xauth -f ~root/.Xauthority list|tail -1)
 xauth add $(xauth -f ~hunterzhang/.Xauthority list|tail -1)
-
-
+```
 
 # Add User
-Considering the stability of the dev environment, I highly recommend that to develop as a notmal user rather than the root. I will use the username, hunterzhang, as the example in the following wiki. \
-Log in you Linux system as the root user:
+To ensure the stability of the development environment, it is recommended to develop as a normal user instead of root. In the following wiki, I will use the username "hunterzhang" as an example. \
+Log in to your Linux system as the root user:
 ```console
 adduser hunterzhang
 passwd hunterzhang
 ```
-Or you can set the password of the new user by:
+Alternatively, you can set the password of the new user by:
 ```console
 echo "hunterzhang:qwert12345" | chpasswd
 ```
 ## Change Home Path(optional)
-Sometimes it is necessary to set your home path to another disk. \
-Using data/home/hunterzhang as an example.\
-We can change the home path mannually by:
+Sometimes it is necessary to set your home path to another disk. Using "data/home/hunterzhang" as an example, you can change the home path manually by:
 ```console
 vi /etc/passwd
 ```
-Or get the UID firstly by:
+Or get the UID first by:
 ```console
 id hunterzhang
 ```
@@ -46,8 +44,10 @@ ubuntu config --default-user <username>
 ```
 # Configure SSH connection(from Windows)
 ## Reinstall and Configure openssh server
+```console
 sudo apt-get remove openssh-server
 sudo apt-get install openssh-server
+```
 
 Any available port is okay for the config:
 ```console
@@ -71,8 +71,7 @@ sudo service ssh status
 ```
 
 ## Add Public Key
-Upload id_rsa.pub from Windows OS to Linux OS at your ssh directory, for example, ~/.ssh$. \
-Add you public key into the Linux OS: \
+Upload "id_rsa.pub" from Windows OS to Linux OS at your SSH directory, for example, "~/.ssh$". Add your public key into the Linux OS:\
 ```console
 cat id_rsa.pub >> authorized_keys
 cd ..
@@ -80,7 +79,7 @@ chmod -R 700 .ssh/
 chmod 600 .ssh/authorized_keys
 ```
 ## Test SSH Connection
-Make sure the Ip address and port for the SSH connection by:
+Make sure the IP address and port for the SSH connection by:
 ```console
 ip addr
 ```
@@ -97,8 +96,7 @@ Execute the following command:
 ```console
 ssh-keygen -t rsa
 ```
-Then you can change or use the default file path/password. \
-To change the file permissions:
+Then you can change or use the default file path/password. To change the file permissions:
 ```console
 chmod -R 700 .ssh/
 chmod 600 authorized_keys 
@@ -106,7 +104,10 @@ chmod 600 authorized_keys
 
 # Git
 Git has been preinstalled by most Linux OSs, but we still need to add our public key to Github or your Git service. \
-Copy the text in the ~/.ssh/id_rsa.pub and add it to your Git then it is done.
+Copy the text in the ~/.ssh/id_rsa.pub and add it to your Git then it is done. \
+
+If your SSH connection to Github is now working, see: \
+https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the-https-port
 
 # VS Code(Remote)
 Install the Remote Development Extension for VS Code. \
@@ -145,7 +146,7 @@ npm install -g @remix-project/remixd
 remixd -i slither
 ```
 
-Or download AppImage version from Github: \
+Or download the AppImage version from Github: \
 ```console
 wget https://github.com/ethereum/remix-desktop/releases/download/v1.3.6/Remix-IDE-1.3.6.AppImage
 ```
@@ -171,42 +172,44 @@ export DISPLAY=:0
 wget https://github.com/trufflesuite/ganache-ui/releases/download/v2.7.1/ganache-2.7.1-linux-x86_64.AppImage
 ```
 # VS Code + Git + Remix(Smart contract dev environment)
-After the basic setup of both Linux and Windows OS, please make sure the following tools are functional in your dev environment before we start this part. \
+Before starting this part, ensure the following tools are functional in your dev environment:\
 ### 1.VS Code(remote, as the IDE)
-You have the access to your remote file system on WSL/Linux through VS Code Remote Development Extension with proper keys and settings. That'means you can now developing locally on your Windows os but all your codes should be complied and executed on the remote machine/WSL.
+Access your remote file system on WSL/Linux through VS Code Remote Development Extension with proper keys and settings. Develop locally on your Windows OS, but compile and execute code on the remote machine/WSL.
 ### 2.Remix IDE(on Linux, as the project manager)
-You can use your Remix IDE installed on the Remote/WSL OS with GUI. And the dependences are already installed, especially the remixd.
+Use Remix IDE installed on the Remote/WSL OS with GUI and ensure dependencies are installed, especially remixd.
 ### 3.Git(Github or your own git system, as the version controller)
-Make sure your user on the Remote/WSL has the SSH access to your Git system, usually you should configure your RSA key on your Giy system for this.
+Ensure your user on the Remote/WSL has SSH access to your Git system by configuring your RSA key on your Git system.
 
 ## Introduction
-With this VS Code + Git + Remix environment, you can **create and run&deploy** your smart contract projects on Linux OS by Remix and other tools it supports. In the past we can simply use the **Ethereum Remix Extension** of VS Code for this but the extension was somehow **DEPRECATED**. I know Remix IDE Desktop is not a perfect choice because it is highly encapsulated and be tied to Ethereum and Solidity. Afterall, at this point, Remix IDE is the best project manager tool for Solidity developers, especially for beginners. You can replace it by a bunch of customized tools as you wish. \
-Next we should link Remix IDE to Git. As Remix IDE is not good enough for a IDE, espically when running remotely. I'm still enjoy so many good features of VS Code such as Editor Split and shortcuts. To develop on VS Code while to run by Remix, we need a third-part version controller. We need a remote version controller anyway, right?  \
-Finally, it's easy to use Git through VS Code as it has a lot of extension on. Enjoy the smooth experience of developing locally on Windows.
+With the VS Code + Git + Remix environment, you can create, run, and deploy your smart contract projects on Linux OS using Remix and other supported tools. Although the Ethereum Remix Extension of VS Code was deprecated, Remix IDE remains the best project manager tool for Solidity developers, especially beginners. You can replace it with customized tools as needed. \
+
+Next, link Remix IDE to Git. Since Remix IDE is not an ideal IDE, especially when running remotely, using VS Code offers many useful features such as Editor Split and shortcuts. To develop on VS Code while running on Remix, use a third-party version controller like Git. \
+
+Finally, use Git through VS Code with its various extensions. Enjoy the smooth experience of developing locally on Windows. \
 
 ## Generate&Set Github Token
-By open the setting panel of Remix IDE, you will find the link to generate your Github token. Generate it and configure it on Remix.
+To generate your Github token, open the setting panel of Remix IDE and follow the link. Generate the token and configure it on Remix.
 ![remix_token_setting](../SetupFromScratch/img/remix_token_setting.jpg) 
 
 ## Create A Git Repository
 
 ![create_on_git](../SetupFromScratch/img/create_on_git.jpg) 
 ## Create Workspace as Git Repo
-Remix IDE is workspaces based. Check the checkbox to create your workspace as a git repository.
+Remix IDE is workspace-based. Check the checkbox to create your workspace as a Git repository.
 ![create_as_git](../SetupFromScratch/img/create_as_git.jpg) 
-When this done, Remix IDE would automatically create a local git commit.
+When this is done, Remix IDE will automatically create a local Git commit.
 ## Push Workspace to Git
-Make sure you have installed **DGIT** plugin of Remix IDE.
+Make sure you have installed the DGIT plugin in Remix IDE.
 ![local_commit](../SetupFromScratch/img/local_commit.jpg) 
-You can see the initial local commit by click the DGIT logo in the left.
-Then, **CLONE, PUSH, PULL & REMOTES -> GIT REMOTE**
+You can see the initial local commit by clicking the DGIT logo on the left. Then, go to **CLONE, PUSH, PULL & REMOTES -> GIT REMOTE**.
 ![add_git_remote](../SetupFromScratch/img/add_git_remote.jpg) 
-The new git remote will be available, check it and PUSH to the **master** branch.
+The new Git remote will be available. Check it and push to the master branch.
 ![push_git](../SetupFromScratch/img/push_git.jpg) 
 ## Pull Your Project from VS Code
 ```console
 git clone https://github.com/Hunter-Plus/Workspace2Git.git
 ```
 ![code_on_vscode](../SetupFromScratch/img/code_on_vscode.jpg) 
-When you wanna run a test, you should push your code to Git from VS Code after set your Git information.
+When you want to run a test, push your code to Git from VS Code after setting your Git information.
 ## Pull your Workspace from Remix IDE
+To pull your workspace from Remix IDE, click the PULL button.
