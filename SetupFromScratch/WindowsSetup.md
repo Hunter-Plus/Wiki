@@ -1,6 +1,13 @@
 # SWL(optional)
 SWL is unnecessary if you have a remote Linux development machine.\
-Follow the official document here:https://learn.microsoft.com/en-us/windows/wsl/install
+Follow the official document here:https://learn.microsoft.com/en-us/windows/wsl/install \
+Set your own user as the default: 
+```console
+ubuntu config --default-user <username>
+```
+## GUI
+If you wanna use some GUI apps such as Remix Desktop, you should configure the WSL GUI following this document: \
+https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps#existing-wsl-install
 ## Cannot use 'wsl'
 ```console
 wsl : The term 'wsl' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the
